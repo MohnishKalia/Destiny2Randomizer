@@ -34,8 +34,33 @@ async function main() {
         })
         ;
 
+    const unvaultedMaps = [
+        'Altar of Flame', 
+        'The Anomaly',
+        'Bannerfall', 
+        'The Burnout',
+        'Cauldron', 
+        'Convergence', 
+        'The Dead Cliffs',
+        'Distant Shore',
+        'Endless Vale', 
+        'Exodus Blue',
+        'The Fortress',
+        'Fragment',
+        'Javelin-4',
+        'Midtown',
+        'Pacifica', 
+        'Radiant Cliffs',
+        'Rusted Lands',
+        'Twilight Gap',
+        "Widow's Court",
+        'Wormhaven'
+    ];
     const map = {};
-    pvpMaps.forEach(obj => (map[obj.name] = `https://bungie.net${obj.url}`));
+    pvpMaps.forEach(({ name, url }) => {
+        if (unvaultedMaps.includes(name))
+            map[name] = `https://bungie.net${url}`
+    });
 
     // console.log(JSON.stringify(pvpMaps, null, 4));
     await fs.writeFile('./data.js', `export const maps = ${JSON.stringify(map, null, 4)}\n`);
