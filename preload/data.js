@@ -1,4 +1,4 @@
-export default {
+export const maps = {
     "Altar of Flame": "https://bungie.net/img/destiny_content/pgcr/crucible_ness.jpg",
     "The Anomaly": "https://bungie.net/img/destiny_content/pgcr/crucible_the_anomaly.jpg",
     "Bannerfall": "https://bungie.net/img/destiny_content/pgcr/crucible_bannerfall.jpg",

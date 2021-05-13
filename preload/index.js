@@ -38,7 +38,7 @@ async function main() {
     pvpMaps.forEach(obj => (map[obj.name] = `https://bungie.net${obj.url}`));
 
     // console.log(JSON.stringify(pvpMaps, null, 4));
-    await fs.writeFile('./data.js', 'export default ' + JSON.stringify(map, null, 4));
+    await fs.writeFile('./data.js', `export const maps = ${JSON.stringify(map, null, 4)}\n`);
     console.log(map);
 }
 
