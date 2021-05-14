@@ -13,58 +13,81 @@ const $http = async (config) => {
     return res.json();
 }
 
+function stringifyExport(varName, obj) {
+    return `export const ${varName} = ${JSON.stringify(obj, null, 4)};\n`;
+}
+
 async function main() {
     const destinyManifest = await getDestinyManifest($http);
     const manifestTables = await getDestinyManifestSlice($http, {
         destinyManifest: destinyManifest.Response,
-        tableNames: ['DestinyActivityDefinition'],
+        tableNames: ['DestinyActivityDefinition', 'DestinyInventoryItemDefinition'],
         language: 'en'
     });
 
-    const pvpMaps = Object.entries(manifestTables.DestinyActivityDefinition)
-        .filter(([, v]) => v.isPvP && v.activityModeTypes.includes(5) && !v.isPlaylist && /^\/img\/destiny_content\/pgcr\/(pvp|crucible)/.test(v.pgcrImage))
-        .map(([, v]) => ({
-            name: v.displayProperties.name,
-            url: v.pgcrImage
+    const pvpMaps = Object.values(manifestTables.DestinyActivityDefinition)
+        .filter(act => act.isPvP && act.activityModeTypes.includes(5) && !act.isPlaylist && /^\/img\/destiny_content\/pgcr\/(pvp|crucible)/.test(act.pgcrImage))
+        .map(act => ({
+            name: act.displayProperties.name,
+            url: act.pgcrImage
         }))
         .sort((a, b) => {
             const simpA = a.name.replace('The ', '');
             const simpB = b.name.replace('The ', '');
             return simpA.localeCompare(simpB);
-        })
-        ;
+        });
+
+    const subclasses = Object.values(manifestTables.DestinyInventoryItemDefinition)
+        .filter(item => / Subclass$/.test(item.itemTypeDisplayName) && /^\w+$/.test(item.displayProperties.name))
+        .map(item => {
+            let [, damageType, classType] = /^(\w+)_(\w+)$/.exec(item.talentGrid?.buildName);
+            let { displayProperties: { name, icon } } = item;
+            icon = `https://bungie.net${icon}`;
+
+            if (damageType === 'thermal')
+                damageType = 'solar';
+
+            return {
+                name,
+                icon,
+                damageType,
+                classType,
+            };
+        });
+
+    const classes = subclasses;
+    console.log(subclasses);
+
 
     const unvaultedMaps = [
-        'Altar of Flame', 
+        'Altar of Flame',
         'The Anomaly',
-        'Bannerfall', 
+        'Bannerfall',
         'The Burnout',
-        'Cauldron', 
-        'Convergence', 
+        'Cauldron',
+        'Convergence',
         'The Dead Cliffs',
         'Distant Shore',
-        'Endless Vale', 
+        'Endless Vale',
         'Exodus Blue',
         'The Fortress',
         'Fragment',
         'Javelin-4',
         'Midtown',
-        'Pacifica', 
+        'Pacifica',
         'Radiant Cliffs',
         'Rusted Lands',
         'Twilight Gap',
         "Widow's Court",
-        'Wormhaven'
+        'Wormhaven',
     ];
-    const map = {};
+    const maps = {};
     pvpMaps.forEach(({ name, url }) => {
         if (unvaultedMaps.includes(name))
-            map[name] = `https://bungie.net${url}`
+            maps[name] = `https://bungie.net${url}`;
     });
 
-    // console.log(JSON.stringify(pvpMaps, null, 4));
-    await fs.writeFile('./data.js', `export const maps = ${JSON.stringify(map, null, 4)}\n`);
-    console.log(map);
+    await fs.writeFile('./data.js', stringifyExport('maps', maps) + stringifyExport('classes', classes));
 }
 
 main();
