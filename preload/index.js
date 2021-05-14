@@ -13,9 +13,32 @@ const $http = async (config) => {
     return res.json();
 }
 
+/**
+ * Get ESModule export for a JSON object
+ * @param {string} varName the variable name for the object
+ * @param {Object} obj the object to stringify
+ * @returns a string with valid JS export syntax
+ */
 function stringifyExport(varName, obj) {
-    return `export const ${varName} = ${JSON.stringify(obj, null, 4)};\n`;
+    return `export const ${varName} = ${JSON.stringify(obj, null, 2)};\n`;
 }
+
+/**
+ * Emulation of groupBy from Java
+ * @template T
+ * @param {T[]} array The array to group on
+ * @param {keyof T} factor The factor by which to group by
+ * @returns an object with the factor as the keys and related entries as the values
+ */
+function groupBy(array, factor) {
+    return array.reduce((accum, obj) => {
+        const key = obj[factor];
+        if (accum[key] === undefined)
+            accum[key] = [];
+        accum[key].push(obj);
+        return accum;
+    }, {});
+};
 
 async function main() {
     const destinyManifest = await getDestinyManifest($http);
@@ -36,29 +59,6 @@ async function main() {
             const simpB = b.name.replace('The ', '');
             return simpA.localeCompare(simpB);
         });
-
-    const subclasses = Object.values(manifestTables.DestinyInventoryItemDefinition)
-        .filter(item => / Subclass$/.test(item.itemTypeDisplayName) && /^\w+$/.test(item.displayProperties.name))
-        .map(item => {
-            let [, damageType, classType] = /^(\w+)_(\w+)$/.exec(item.talentGrid?.buildName);
-            let { displayProperties: { name, icon } } = item;
-            icon = `https://bungie.net${icon}`;
-
-            if (damageType === 'thermal')
-                damageType = 'solar';
-
-            return {
-                name,
-                icon,
-                damageType,
-                classType,
-            };
-        });
-
-    const classes = subclasses;
-    console.log(subclasses);
-
-
     const unvaultedMaps = [
         'Altar of Flame',
         'The Anomaly',
@@ -86,6 +86,33 @@ async function main() {
         if (unvaultedMaps.includes(name))
             maps[name] = `https://bungie.net${url}`;
     });
+
+    const subclasses = Object.values(manifestTables.DestinyInventoryItemDefinition)
+        .filter(item => / Subclass$/.test(item.itemTypeDisplayName) && /^\w+$/.test(item.displayProperties.name))
+        .map(item => {
+            let [, damageType, classType] = /^(\w+)_(\w+)$/.exec(item.talentGrid?.buildName);
+            let { displayProperties: { name, icon } } = item;
+            icon = `https://bungie.net${icon}`;
+
+            if (damageType === 'thermal')
+                damageType = 'solar';
+
+            return {
+                name,
+                icon,
+                damageType,
+                classType,
+            };
+        });
+    const classes = groupBy(subclasses, 'classType');
+    for (const key of Object.keys(classes)) {
+        const nestSub = classes[key];
+        classes[key] = groupBy(nestSub, 'damageType');
+        for (const nestKey of Object.keys(classes[key])) {
+            const { name, icon } = classes[key][nestKey][0];
+            classes[key][nestKey] = { name, icon };
+        }
+    }
 
     await fs.writeFile('./data.js', stringifyExport('maps', maps) + stringifyExport('classes', classes));
 }
