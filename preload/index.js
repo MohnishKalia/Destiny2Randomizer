@@ -114,7 +114,7 @@ async function main() {
         }
     }
 
-    await fs.writeFile('./data.js', stringifyExport('maps', maps) + stringifyExport('classes', classes));
+    await fs.writeFile('../client/src/data.ts', stringifyExport('maps', maps) + stringifyExport('classes', classes));
 }
 
 main();
