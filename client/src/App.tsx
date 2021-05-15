@@ -6,10 +6,9 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Header from './components/Header';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
-    Link,
 } from 'react-router-dom';
 import Match from './components/Match';
 import Home from './components/Home';
@@ -32,33 +31,29 @@ function App() {
         <ThemeProvider theme={theme}>
             <StateProvider>
                 <CssBaseline />
-                <Header />
-                <Container maxWidth="lg">
-                    <Grid container spacing={3}>
-                        <Grid container item alignItems="center">
-                            <Grid item md={2}></Grid>
-                            <Grid item xs={12} md={8}>
-                                <Router>
-                                    <Link to="/">
-                                        Home
-                                    </Link>
-                                    <Link to="/match">
-                                        Randomize!
-                                    </Link>
-                                    <Switch>
-                                        <Route path="/match">
-                                            <Match />
-                                        </Route>
-                                        <Route path="/">
-                                            <Home />
-                                        </Route>
-                                    </Switch>
-                                </Router>
+                <Router>
+                    <div>
+                        <Header />
+                        <Container maxWidth="lg">
+                            <Grid container spacing={3}>
+                                <Grid container item alignItems="center">
+                                    <Grid item md={2}></Grid>
+                                    <Grid item xs={12} md={8}>
+                                        <Switch>
+                                            <Route path="/match">
+                                                <Match />
+                                            </Route>
+                                            <Route path="/">
+                                                <Home />
+                                            </Route>
+                                        </Switch>
+                                    </Grid>
+                                    <Grid item md={2}></Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item md={2}></Grid>
-                        </Grid>
-                    </Grid>
-                </Container>
+                        </Container>
+                    </div>
+                </Router>
             </StateProvider>
         </ThemeProvider>
     );

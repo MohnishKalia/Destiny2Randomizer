@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import LowPriority from '@material-ui/icons/LowPriority';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,9 +27,11 @@ export default function Header() {
     return (
         <AppBar className={classes.root} position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <LowPriority />
-                </IconButton>
+                <Link to="/">
+                    <IconButton edge="start" className={classes.menuButton} color="default" aria-label="menu">
+                        <LowPriority />
+                    </IconButton>
+                </Link>
                 <Typography variant="h6" className={classes.title}>
                     Crucible Randomizer
                 </Typography>

@@ -7,6 +7,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -30,7 +32,7 @@ export default function Home() {
     return (
         <>
             <Typography variant="h2" align="center" className={styles.mb2}>Select Maps</Typography>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} className={styles.mb2}>
                 {state.maps.map(({ name, selected }) => (
                     <Grid item xs={6} md={4} key={name}>
                         <Paper className={styles.paper}>
@@ -48,6 +50,11 @@ export default function Home() {
                     </Grid>
                 ))}
             </Grid>
+            <Link to="/match" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" color="primary">
+                    Randomize!
+                </Button>
+            </Link>
         </>
     );
 }
