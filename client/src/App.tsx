@@ -9,6 +9,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Link,
 } from 'react-router-dom';
 import Match from './components/Match';
 import Home from './components/Home';
@@ -38,6 +39,12 @@ function App() {
                             <Grid item md={2}></Grid>
                             <Grid item xs={12} md={8}>
                                 <Router>
+                                    <Link to="/">
+                                        Home
+                                    </Link>
+                                    <Link to="/match">
+                                        Randomize!
+                                    </Link>
                                     <Switch>
                                         <Route path="/match">
                                             <Match />

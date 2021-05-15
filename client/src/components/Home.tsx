@@ -32,7 +32,7 @@ export default function Home() {
             <Typography variant="h2" align="center" className={styles.mb2}>Select Maps</Typography>
             <Grid container spacing={3}>
                 {state.maps.map(({ name, selected }) => (
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={6} md={4} key={name}>
                         <Paper className={styles.paper}>
                             <FormControlLabel
                                 control={
