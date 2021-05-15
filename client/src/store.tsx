@@ -14,6 +14,7 @@ export interface Player {
 export interface StateContext {
     maps: PVPMap[];
     players: Player[];
+    teams: boolean;
 }
 
 export interface Store {
@@ -23,8 +24,10 @@ export interface Store {
 
 export type Action =
     { type: 'edit_map' } & PVPMap
-    | { type: 'add_player' } & Player
-    | { type: 'remove_player' } & Pick<Player, 'name'>;
+    | { type: 'add_player' }
+    | { type: 'edit_player' } & Player & { index: number }
+    | { type: 'remove_player' } & { index: number }
+    | { type: 'edit_teams' } & { selected: boolean };
 
 export const reducer = (state: StateContext, action: Action): StateContext => {
     switch (action.type) {
@@ -34,12 +37,19 @@ export const reducer = (state: StateContext, action: Action): StateContext => {
             return { ...state };
         }
         case 'add_player': {
-            state.players.push({ name: action.name, selectedClass: action.selectedClass });
+            state.players.push({ name: '', selectedClass: 'hunter' });
+            return { ...state };
+        }
+        case 'edit_player': {
+            state.players[action.index] = { name: action.name, selectedClass: action.selectedClass };
             return { ...state };
         }
         case 'remove_player': {
-            const mapIndex = state.players.findIndex(player => player.name === action.name);
-            state.players.splice(mapIndex, 1);
+            state.players.splice(action.index, 1);
+            return { ...state };
+        }
+        case 'edit_teams': {
+            state.teams = action.selected;
             return { ...state };
         }
         default:
@@ -56,7 +66,7 @@ const startingMaps: (keyof typeof maps)[] = [
     'Wormhaven',
 ];
 
-const defaultState: StateContext = { maps: [], players: [] };
+const defaultState: StateContext = { maps: [], players: [], teams: true };
 (Object.keys(maps) as (keyof typeof maps)[]).forEach(map => {
     const obj = { name: map, selected: false };
     if (startingMaps.includes(map))

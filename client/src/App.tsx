@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import {
     HashRouter as Router,
     Switch,
@@ -52,6 +53,7 @@ function App() {
                                 </Grid>
                             </Grid>
                         </Container>
+                        <Footer />
                     </div>
                 </Router>
             </StateProvider>
