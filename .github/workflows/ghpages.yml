@@ -13,7 +13,7 @@ jobs:
       - name: Set Up Node
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: "10.x"
+          node-version: "14.x"
       - name: Preload Data
         working-directory: ./preload
         run: npm install && node .
@@ -26,4 +26,5 @@ jobs:
           target_branch: gh-pages
           build_dir: ./client/build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_KEY: ${{ secrets.API_KEY }}
