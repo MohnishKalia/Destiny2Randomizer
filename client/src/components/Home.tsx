@@ -86,7 +86,7 @@ export default function Home() {
                     <Card className={styles.card} variant="outlined" key={i}>
                         <CardActions>
                             <form noValidate autoComplete="off" onSubmit={(e) => { e.preventDefault() }}>
-                                <TextField id="outlined-basic" label="Name" value={player.name} variant="standard" size="small" onChange={(e) =>
+                                <TextField label="Name" value={player.name} variant="standard" size="small" onChange={(e) =>
                                     dispatch?.({ type: 'edit_player', index: i, name: e.target.value, selectedClass: player.selectedClass })} />
                             </form>
                             <ToggleButtonGroup

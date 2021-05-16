@@ -66,7 +66,28 @@ const startingMaps: (keyof typeof maps)[] = [
     'Wormhaven',
 ];
 
-const defaultState: StateContext = { maps: [], players: [], teams: true };
+const defaultState: StateContext = { maps: [], players: [
+    {
+        name: 'UnshiftedOcean',
+        selectedClass: 'hunter',
+    },
+    {
+        name: 'TheShadowReborn',
+        selectedClass: 'hunter',
+    },
+    {
+        name: 'TheLegendAve',
+        selectedClass: 'warlock',
+    },
+    {
+        name: 'BoulderPanda',
+        selectedClass: 'titan',
+    },
+    {
+        name: 'Bicreeper',
+        selectedClass: 'titan',
+    },
+], teams: true };
 (Object.keys(maps) as (keyof typeof maps)[]).forEach(map => {
     const obj = { name: map, selected: false };
     if (startingMaps.includes(map))
