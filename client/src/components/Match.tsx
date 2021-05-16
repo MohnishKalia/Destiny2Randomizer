@@ -16,6 +16,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -79,7 +81,7 @@ export default function Match() {
                     <Typography variant="h3">{selectedMap}</Typography>
                 </div>
             </Card>
-            <Box mt={2}>
+            <Box m={2}>
                 <Grid container spacing={3}>
                     {players.teams
                         ? (
@@ -130,6 +132,11 @@ export default function Match() {
                     }
                 </Grid>
             </Box>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" color="primary">
+                    Return To Configuration
+                </Button>
+            </Link>
         </div>
     );
 }
