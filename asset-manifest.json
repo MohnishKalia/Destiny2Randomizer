@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/Destiny2Randomizer/static/js/main.f8c0a54f.chunk.js",
+    "main.js.map": "/Destiny2Randomizer/static/js/main.f8c0a54f.chunk.js.map",
+    "runtime-main.js": "/Destiny2Randomizer/static/js/runtime-main.3ec872bd.js",
+    "runtime-main.js.map": "/Destiny2Randomizer/static/js/runtime-main.3ec872bd.js.map",
+    "static/js/2.2e30ba17.chunk.js": "/Destiny2Randomizer/static/js/2.2e30ba17.chunk.js",
+    "static/js/2.2e30ba17.chunk.js.map": "/Destiny2Randomizer/static/js/2.2e30ba17.chunk.js.map",
+    "index.html": "/Destiny2Randomizer/index.html",
+    "static/js/2.2e30ba17.chunk.js.LICENSE.txt": "/Destiny2Randomizer/static/js/2.2e30ba17.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3ec872bd.js",
+    "static/js/2.2e30ba17.chunk.js",
+    "static/js/main.f8c0a54f.chunk.js"
+  ]
+}
