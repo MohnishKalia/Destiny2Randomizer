@@ -21,29 +21,7 @@ export const maps = {
   "Wormhaven": "https://bungie.net/img/destiny_content/pgcr/pvp_wormhaven.jpg"
 };
 export const classes = {
-  "titan": {
-    "stasis": {
-      "name": "Behemoth",
-      "icon": "https://bungie.net/common/destiny2_content/icons/3c0dc830b83a9f3e9a52b7bea4494f64.png"
-    },
-    "arc": {
-      "name": "Striker",
-      "icon": "https://bungie.net/common/destiny2_content/icons/83c478558665bbadd251d80d3d05bc2e.png"
-    },
-    "solar": {
-      "name": "Sunbreaker",
-      "icon": "https://bungie.net/common/destiny2_content/icons/fedcb91b7ab0584c12f0e9fec730702b.png"
-    },
-    "void": {
-      "name": "Sentinel",
-      "icon": "https://bungie.net/common/destiny2_content/icons/fa3084d2798d59db7b3419a2fae1bf0c.png"
-    }
-  },
   "hunter": {
-    "stasis": {
-      "name": "Revenant",
-      "icon": "https://bungie.net/common/destiny2_content/icons/3c0dc830b83a9f3e9a52b7bea4494f64.png"
-    },
     "arc": {
       "name": "Arcstrider",
       "icon": "https://bungie.net/common/destiny2_content/icons/83c478558665bbadd251d80d3d05bc2e.png"
@@ -62,16 +40,26 @@ export const classes = {
       "name": "Stormcaller",
       "icon": "https://bungie.net/common/destiny2_content/icons/83c478558665bbadd251d80d3d05bc2e.png"
     },
-    "stasis": {
-      "name": "Shadebinder",
-      "icon": "https://bungie.net/common/destiny2_content/icons/3c0dc830b83a9f3e9a52b7bea4494f64.png"
-    },
     "solar": {
       "name": "Dawnblade",
       "icon": "https://bungie.net/common/destiny2_content/icons/fedcb91b7ab0584c12f0e9fec730702b.png"
     },
     "void": {
       "name": "Voidwalker",
+      "icon": "https://bungie.net/common/destiny2_content/icons/fa3084d2798d59db7b3419a2fae1bf0c.png"
+    }
+  },
+  "titan": {
+    "arc": {
+      "name": "Striker",
+      "icon": "https://bungie.net/common/destiny2_content/icons/83c478558665bbadd251d80d3d05bc2e.png"
+    },
+    "solar": {
+      "name": "Sunbreaker",
+      "icon": "https://bungie.net/common/destiny2_content/icons/fedcb91b7ab0584c12f0e9fec730702b.png"
+    },
+    "void": {
+      "name": "Sentinel",
       "icon": "https://bungie.net/common/destiny2_content/icons/fa3084d2798d59db7b3419a2fae1bf0c.png"
     }
   }

@@ -93,17 +93,20 @@ async function main() {
             let [, damageType, classType] = /^(\w+)_(\w+)$/.exec(item.talentGrid?.buildName);
             let { displayProperties: { name, icon } } = item;
             icon = `https://bungie.net${icon}`;
+            
+            if (damageType === 'stasis')
+                return null;
 
             if (damageType === 'thermal')
                 damageType = 'solar';
-
+            
             return {
                 name,
                 icon,
                 damageType,
                 classType,
             };
-        });
+        }).filter(item => item);
     const classes = groupBy(subclasses, 'classType');
     for (const key of Object.keys(classes)) {
         const nestSub = classes[key];
