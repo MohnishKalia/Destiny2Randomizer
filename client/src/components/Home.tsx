@@ -15,14 +15,11 @@ import LocalDining from '@material-ui/icons/LocalDining';
 import Whatshot from '@material-ui/icons/Whatshot';
 import Security from '@material-ui/icons/Security';
 import Delete from '@material-ui/icons/Delete';
-// import { ReactComponent as HunterEmblem } from '../emblems/hunter_emblem.svg';
-// import { ReactComponent as WarlockEmblem } from '../emblems/warlock_emblem.svg';
-// import { ReactComponent as TitanEmblem } from '../emblems/titan_emblem.svg';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -44,9 +41,6 @@ const useStyles = makeStyles((theme) =>
             display: 'flex',
             flexDirection: 'column',
             gap: theme.spacing(3)
-        },
-        mla: {
-            marginLeft: 'auto',
         }
     }),
 );
@@ -92,13 +86,14 @@ export default function Home() {
                     <Card className={styles.card} variant="outlined" key={i}>
                         <CardActions>
                             <form noValidate autoComplete="off" onSubmit={(e) => { e.preventDefault() }}>
-                                <TextField id="outlined-basic" label="Name" value={player.name} variant="standard" onChange={(e) => 
+                                <TextField id="outlined-basic" label="Name" value={player.name} variant="standard" size="small" onChange={(e) =>
                                     dispatch?.({ type: 'edit_player', index: i, name: e.target.value, selectedClass: player.selectedClass })} />
                             </form>
                             <ToggleButtonGroup
                                 value={player.selectedClass}
                                 exclusive
-                                onChange={(_, selClass) => selClass && 
+                                size="small"
+                                onChange={(_, selClass) => selClass &&
                                     dispatch?.({ type: 'edit_player', index: i, name: player.name, selectedClass: selClass })}
                                 aria-label="class select"
                             >
@@ -112,9 +107,9 @@ export default function Home() {
                                     <Security />
                                 </ToggleButton>
                             </ToggleButtonGroup>
-                            <Fab size="small" color="secondary" className={styles.mla} aria-label="delete" onClick={() => dispatch?.({ type: 'remove_player', index: i })}>
+                            <IconButton aria-label="delete" style={{ marginLeft: 'auto' }} onClick={() => dispatch?.({ type: 'remove_player', index: i })}>
                                 <Delete />
-                            </Fab>
+                            </IconButton>
                         </CardActions>
                     </Card>
                 ))}
